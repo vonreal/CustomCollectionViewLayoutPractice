@@ -13,7 +13,6 @@ import SwiftyJSON
 
 class RandomPhotoCollectionViewController: UICollectionViewController {
     var photos: [Photo] = []
-//    var photos = [UIImage(named: "N1"), UIImage(named: "N2"), UIImage(named: "N3"), UIImage(named: "N1"), UIImage(named: "N2"), UIImage(named: "N3")]
     var photoSizes: [CGSize] = []
 
     override func viewDidLoad() {
@@ -64,8 +63,6 @@ extension RandomPhotoCollectionViewController: UICollectionViewDelegateFlowLayou
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RandomViewCollectionViewCell.reuseIdenfier, for: indexPath) as? RandomViewCollectionViewCell else { return UICollectionViewCell() }
         cell.photoImageView.kf.setImage(with: photos[indexPath.item].imageURL)
-//        cell.photoImageView.image = photos[indexPath.item]!
-//        cell.backgroundColor = .lightGray
         return cell
     }
     
@@ -78,6 +75,5 @@ extension RandomPhotoCollectionViewController: UICollectionViewDelegateFlowLayou
 extension RandomPhotoCollectionViewController: PhotoLayoutDelgate {
     func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGSize {
         return photoSizes[indexPath.item]
-//        return photos[indexPath.item]!.size
     }
 }
