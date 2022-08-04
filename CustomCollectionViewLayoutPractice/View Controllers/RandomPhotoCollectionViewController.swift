@@ -31,7 +31,7 @@ class RandomPhotoCollectionViewController: UICollectionViewController {
 
         AF.request(url, method: .get)
             .validate()
-            .responseJSON { response in
+            .responseData { response in
                 switch response.result {
                 case .success(let value):
                     let jsonArray = JSON(value).arrayValue
