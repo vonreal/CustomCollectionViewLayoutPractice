@@ -14,7 +14,7 @@ import SwiftyJSON
 class RandomPhotoCollectionViewController: UICollectionViewController {
     var photos: [Photo] = []
     var photoSizes: [CGSize] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
        
@@ -23,11 +23,12 @@ class RandomPhotoCollectionViewController: UICollectionViewController {
         }
         
         collectionView.contentInset = UIEdgeInsets(top: 50, left: 16, bottom: 10, right: 16)
+        collectionView.prefetchDataSource = self
         setPhotos()
     }
     
     func setPhotos() {
-        let url = EndPoint.unsplash + "?client_id=\(APIKeys.unsplashAccessKey)&count=30"
+        let url = EndPoint.unsplash + "?client_id=\(APIKeys.unsplashAccessKey)&count=10"
 
         AF.request(url, method: .get)
             .validate()
@@ -52,6 +53,16 @@ class RandomPhotoCollectionViewController: UICollectionViewController {
                     break
                 }
             }
+    }
+}
+
+extension RandomPhotoCollectionViewController: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        for indexPath in indexPaths {
+            if indexPath.item == photos.count - 1 {
+                setPhotos()
+            }
+        }
     }
 }
 
